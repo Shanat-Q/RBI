@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Saheba API Home</title>
+    <script>
+        async function sendRequest(url, method, data) {
+            const response = await fetch(url, {
+                method: method,
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: data ? JSON.stringify(data) : null
+            });
+            const result = await response.json();
+            console.log(result);
+            alert(JSON.stringify(result, null, 2));
+        }
+
+        function saveSaheba() {
+            const saheba = {
+                // Add the necessary fields for Saheba entity here
+                // Example: name: document.getElementById('sahebaName').value
+            };
+            sendRequest('/saheba/save', 'POST', saheba);
+        }
+
+        function saveDepartment() {
+            const department = {
+                // Add the necessary fields for Department entity here
+                // Example: name: document.getElementById('departmentName').value
+            };
+            sendRequest('/saheba/savedepartment', 'POST', department);
+        }
+
+        function getAllSaheba() {
+            sendRequest('/saheba/getall', 'GET');
+        }
+
+        function getAllSahebaAndDepartment() {
+            sendRequest('/saheba/sahebadepartmentdata', 'GET');
+        }
+
+        function deleteById() {
+            const id = document.getElementById('deleteId').value;
+            sendRequest(`/saheba/delete/${id}`, 'DELETE');
+        }
+
+        function updateSaheba() {
+            const id = document.getElementById('updateId').value;
+            const saheba = {
+                // Add the necessary fields for Saheba entity here
+                // Example: name: document.getElementById('updateSahebaName').value
+            };
+            sendRequest(`/saheba/update/${id}`, 'PUT', saheba);
+        }
+    </script>
+</head>
+<body>
+    <h1>Saheba API Home</h1>
+    
+    <h2>Save Saheba</h2>
+    <!-- Add input fields for Saheba entity -->
+    <!-- Example: <input type="text" id="sahebaName" placeholder="Saheba Name"> -->
+    <button onclick="saveSaheba()">Save Saheba</button>
+    
+    <h2>Save Department</h2>
+    <!-- Add input fields for Department entity -->
+    <!-- Example: <input type="text" id="departmentName" placeholder="Department Name"> -->
+    <button onclick="saveDepartment()">Save Department</button>
+    
+    <h2>Get All Sahebas</h2>
+    <button onclick="getAllSaheba()">Get All Sahebas</button>
+    
+    <h2>Get All Saheba and Department Data</h2>
+    <button onclick="getAllSahebaAndDepartment()">Get All Saheba and Department Data</button>
+    
+    <h2>Delete Saheba by ID</h2>
+    <input type="text" id="deleteId" placeholder="ID">
+    <button onclick="deleteById()">Delete</button>
+    
+    <h2>Update Saheba</h2>
+    <input type="text" id="updateId" placeholder="ID">
+    <!-- Add input fields for Saheba entity -->
+    <!-- Example: <input type="text" id="updateSahebaName" placeholder="Saheba Name"> -->
+    <button onclick="updateSaheba()">Update</button>
+    
+</body>
+</html>
